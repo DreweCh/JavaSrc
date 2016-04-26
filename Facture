@@ -1,0 +1,185 @@
+package view.gestion;
+
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.SpringLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.border.TitledBorder;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
+public class Facture extends JInternalFrame {
+	private JTextField txt_id;
+	private JTextField txt_nom;
+	private JTextField txt_proID;
+	private JTextField txt_pNom;
+	private JTextField txt_adresse;
+	private JTextField txt_ville;
+	private JTextField txt_prix;
+	private JTextField txt_qte;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Facture frame = new Facture();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Facture() {
+		setTitle("Gestion Facture");
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
+		
+		JPanel panel_client = new JPanel();
+		panel_client.setBorder(new TitledBorder(null, "Client", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		getContentPane().add(panel_client, "cell 0 0,grow");
+		panel_client.setLayout(new FormLayout(new ColumnSpec[] {
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
+		
+		JLabel lblRf = new JLabel("R\u00E9f ");
+		panel_client.add(lblRf, "2, 2, left, default");
+		
+		txt_id = new JTextField();
+		panel_client.add(txt_id, "4, 2, fill, default");
+		txt_id.setColumns(10);
+		
+		JLabel lblNom = new JLabel("Nom ");
+		panel_client.add(lblNom, "2, 4, left, default");
+		
+		txt_nom = new JTextField();
+		panel_client.add(txt_nom, "4, 4, fill, default");
+		txt_nom.setColumns(10);
+		
+		JLabel lblAdresse = new JLabel("Adresse ");
+		panel_client.add(lblAdresse, "2, 6, right, default");
+		
+		txt_adresse = new JTextField();
+		panel_client.add(txt_adresse, "4, 6, fill, default");
+		txt_adresse.setColumns(10);
+		
+		JLabel lblVille = new JLabel("Ville ");
+		panel_client.add(lblVille, "2, 8, left, default");
+		
+		txt_ville = new JTextField();
+		panel_client.add(txt_ville, "4, 8, fill, default");
+		txt_ville.setColumns(10);
+		JPanel panel_produit = new JPanel();
+		panel_produit.setBorder(new TitledBorder(null, "Produit", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		getContentPane().add(panel_produit, "cell 1 0,grow");
+		panel_produit.setLayout(new FormLayout(new ColumnSpec[] {
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
+		
+		JLabel lblRf_1 = new JLabel("R\u00E9f : ");
+		panel_produit.add(lblRf_1, "2, 2, left, default");
+		
+		txt_proID = new JTextField();
+		panel_produit.add(txt_proID, "4, 2, fill, default");
+		txt_proID.setColumns(10);
+		
+		JLabel lblNom_1 = new JLabel("Nom :");
+		panel_produit.add(lblNom_1, "2, 4, left, default");
+		
+		txt_pNom = new JTextField();
+		panel_produit.add(txt_pNom, "4, 4, fill, default");
+		txt_pNom.setColumns(10);
+		
+		JLabel lblPrix = new JLabel("Prix");
+		panel_produit.add(lblPrix, "2, 6, left, default");
+		
+		txt_prix = new JTextField();
+		panel_produit.add(txt_prix, "4, 6, fill, default");
+		txt_prix.setColumns(10);
+		
+		JLabel lblQuantitEnStock = new JLabel("Quantit\u00E9");
+		panel_produit.add(lblQuantitEnStock, "2, 8, left, default");
+		
+		txt_qte = new JTextField();
+		panel_produit.add(txt_qte, "4, 8, fill, default");
+		txt_qte.setColumns(10);
+		
+		
+		JPanel panel_btn = new JPanel();
+		getContentPane().add(panel_btn, "cell 0 1,grow");
+		GridBagLayout gbl_panel_btn = new GridBagLayout();
+		gbl_panel_btn.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_panel_btn.rowHeights = new int[]{0, 0, 0};
+		gbl_panel_btn.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_btn.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		panel_btn.setLayout(gbl_panel_btn);
+		
+		JButton btnValider = new JButton("Valider");
+		GridBagConstraints gbc_btnValider = new GridBagConstraints();
+		gbc_btnValider.insets = new Insets(0, 0, 0, 5);
+		gbc_btnValider.gridx = 0;
+		gbc_btnValider.gridy = 1;
+		panel_btn.add(btnValider, gbc_btnValider);
+		
+		JButton btnAjouterProduit = new JButton("Ajouter Produit");
+		GridBagConstraints gbc_btnAjouterProduit = new GridBagConstraints();
+		gbc_btnAjouterProduit.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAjouterProduit.gridx = 1;
+		gbc_btnAjouterProduit.gridy = 1;
+		panel_btn.add(btnAjouterProduit, gbc_btnAjouterProduit);
+		
+		JButton btnQuitter = new JButton("Quitter");
+		GridBagConstraints gbc_btnQuitter = new GridBagConstraints();
+		gbc_btnQuitter.gridx = 2;
+		gbc_btnQuitter.gridy = 1;
+		panel_btn.add(btnQuitter, gbc_btnQuitter);
+
+	}
+}

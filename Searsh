@@ -1,0 +1,233 @@
+package view.client;
+
+import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+
+import model.Client;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Chercher_Client extends JInternalFrame {
+	private JTextField txt_adresse;
+	private JTextField txt_ville;
+	private JTextField txt_tel;
+	private JTextField txt_email;
+	private JComboBox cbx_nom;
+	private String key="";
+	private JInternalFrame m_JFrameChercherClient;
+	private JTextField txt_ref;
+
+	/**
+	 * Create the frame.
+	 */
+	public Chercher_Client() {
+		super("Gestion client", true, true, true, true);
+		
+		m_JFrameChercherClient = new JInternalFrame();
+		m_JFrameChercherClient = this;
+		setBounds(100, 100, 450, 300);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		getContentPane().setLayout(gridBagLayout);
+		
+		JLabel label = new JLabel("");
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.gridx = 2;
+		gbc_label.gridy = 0;
+		getContentPane().add(label, gbc_label);
+		
+		JLabel label_2 = new JLabel("");
+		GridBagConstraints gbc_label_2 = new GridBagConstraints();
+		gbc_label_2.insets = new Insets(0, 0, 5, 5);
+		gbc_label_2.gridx = 0;
+		gbc_label_2.gridy = 1;
+		getContentPane().add(label_2, gbc_label_2);
+		
+		JLabel lblNom = new JLabel("Nom");
+		GridBagConstraints gbc_lblNom = new GridBagConstraints();
+		gbc_lblNom.anchor = GridBagConstraints.WEST;
+		gbc_lblNom.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNom.gridx = 2;
+		gbc_lblNom.gridy = 1;
+		getContentPane().add(lblNom, gbc_lblNom);
+		
+		cbx_nom = new JComboBox();
+		
+		JTextField txtfield = (JTextField) cbx_nom.getEditor().getEditorComponent();
+		txtfield.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent arg0)
+			{
+				Client cl = new Client();
+				
+				if(arg0.getKeyCode()>=65 && arg0.getKeyCode() <=90)
+					key+=arg0.getKeyChar();
+				cbx_nom.removeAllItems();
+				cbx_nom.addItem(null);
+				
+				String[] t = cl.lister_ParNom(key);
+				for (int i=0; i <cl.lister_ParNom(key).length;i++)
+				{
+					cbx_nom.addItem(t[i]);
+				}
+					
+			}
+		});
+		cbx_nom.setEditable(true);
+		GridBagConstraints gbc_cbx_nom = new GridBagConstraints();
+		gbc_cbx_nom.insets = new Insets(0, 0, 5, 0);
+		gbc_cbx_nom.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbx_nom.gridx = 5;
+		gbc_cbx_nom.gridy = 1;
+		getContentPane().add(cbx_nom, gbc_cbx_nom);
+		
+		JLabel lblRf = new JLabel("R\u00E9f");
+		GridBagConstraints gbc_lblRf = new GridBagConstraints();
+		gbc_lblRf.anchor = GridBagConstraints.WEST;
+		gbc_lblRf.insets = new Insets(0, 0, 5, 5);
+		gbc_lblRf.gridx = 2;
+		gbc_lblRf.gridy = 2;
+		getContentPane().add(lblRf, gbc_lblRf);
+		
+		txt_ref = new JTextField();
+		txt_ref.setEnabled(false);
+		GridBagConstraints gbc_txt_ref = new GridBagConstraints();
+		gbc_txt_ref.insets = new Insets(0, 0, 5, 0);
+		gbc_txt_ref.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txt_ref.gridx = 5;
+		gbc_txt_ref.gridy = 2;
+		getContentPane().add(txt_ref, gbc_txt_ref);
+		txt_ref.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Adresse");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 2;
+		gbc_lblNewLabel.gridy = 3;
+		getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+		
+		txt_adresse = new JTextField();
+		txt_adresse.setEditable(false);
+		GridBagConstraints gbc_txt_adresse = new GridBagConstraints();
+		gbc_txt_adresse.insets = new Insets(0, 0, 5, 0);
+		gbc_txt_adresse.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txt_adresse.gridx = 5;
+		gbc_txt_adresse.gridy = 3;
+		getContentPane().add(txt_adresse, gbc_txt_adresse);
+		txt_adresse.setColumns(10);
+		
+		JLabel lblVille = new JLabel("Ville");
+		GridBagConstraints gbc_lblVille = new GridBagConstraints();
+		gbc_lblVille.anchor = GridBagConstraints.WEST;
+		gbc_lblVille.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVille.gridx = 2;
+		gbc_lblVille.gridy = 4;
+		getContentPane().add(lblVille, gbc_lblVille);
+		
+		txt_ville = new JTextField();
+		txt_ville.setEditable(false);
+		GridBagConstraints gbc_txt_ville = new GridBagConstraints();
+		gbc_txt_ville.insets = new Insets(0, 0, 5, 0);
+		gbc_txt_ville.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txt_ville.gridx = 5;
+		gbc_txt_ville.gridy = 4;
+		getContentPane().add(txt_ville, gbc_txt_ville);
+		txt_ville.setColumns(10);
+		
+		JLabel lblTl = new JLabel("T\u00E9l");
+		GridBagConstraints gbc_lblTl = new GridBagConstraints();
+		gbc_lblTl.anchor = GridBagConstraints.WEST;
+		gbc_lblTl.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTl.gridx = 2;
+		gbc_lblTl.gridy = 5;
+		getContentPane().add(lblTl, gbc_lblTl);
+		
+		txt_tel = new JTextField();
+		txt_tel.setEditable(false);
+		GridBagConstraints gbc_txt_tel = new GridBagConstraints();
+		gbc_txt_tel.insets = new Insets(0, 0, 5, 0);
+		gbc_txt_tel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txt_tel.gridx = 5;
+		gbc_txt_tel.gridy = 5;
+		getContentPane().add(txt_tel, gbc_txt_tel);
+		txt_tel.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("Email");
+		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
+		gbc_lblEmail.anchor = GridBagConstraints.WEST;
+		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEmail.gridx = 2;
+		gbc_lblEmail.gridy = 6;
+		getContentPane().add(lblEmail, gbc_lblEmail);
+		
+		txt_email = new JTextField();
+		txt_email.setEditable(false);
+		GridBagConstraints gbc_txt_email = new GridBagConstraints();
+		gbc_txt_email.insets = new Insets(0, 0, 5, 0);
+		gbc_txt_email.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txt_email.gridx = 5;
+		gbc_txt_email.gridy = 6;
+		getContentPane().add(txt_email, gbc_txt_email);
+		txt_email.setColumns(10);
+		
+		JLabel label_1 = new JLabel("");
+		GridBagConstraints gbc_label_1 = new GridBagConstraints();
+		gbc_label_1.insets = new Insets(0, 0, 5, 5);
+		gbc_label_1.gridx = 1;
+		gbc_label_1.gridy = 7;
+		getContentPane().add(label_1, gbc_label_1);
+		
+		JButton btnAjouter = new JButton("Chercher");
+		btnAjouter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Client cl = Client.recherche(cbx_nom.getSelectedItem().toString());
+				if (cl.getNom()=="")
+				{
+					JOptionPane.showConfirmDialog(null, "Verifier si vous avez rempli tous les champs", "Erreur", JOptionPane.CLOSED_OPTION, JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				txt_adresse.setText(cl.getAdresse());
+				txt_tel.setText(cl.getTel());
+				txt_email.setText(cl.getEmail());
+				txt_ville.setText(cl.getVille());
+				txt_ref.setText(String.valueOf(cl.getClientID()));
+			}
+		});
+		GridBagConstraints gbc_btnAjouter = new GridBagConstraints();
+		gbc_btnAjouter.anchor = GridBagConstraints.EAST;
+		gbc_btnAjouter.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAjouter.gridx = 2;
+		gbc_btnAjouter.gridy = 8;
+		getContentPane().add(btnAjouter, gbc_btnAjouter);
+		
+		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				m_JFrameChercherClient.setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnQuitter = new GridBagConstraints();
+		gbc_btnQuitter.anchor = GridBagConstraints.WEST;
+		gbc_btnQuitter.gridx = 5;
+		gbc_btnQuitter.gridy = 8;
+		getContentPane().add(btnQuitter, gbc_btnQuitter);
+
+	}
+}
+ 
